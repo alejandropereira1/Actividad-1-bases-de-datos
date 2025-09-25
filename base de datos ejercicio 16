@@ -1,0 +1,65 @@
+USE alejandropereira
+
+CREATE TABLE clientes(
+ID_cliente INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+Dni_cliente INT (13) NOT NULL UNIQUE,
+Nombre_completo VARCHAR (40) NOT NULL,
+Teléfono INT (10) NOT NULL,
+Correo VARCHAR (40) NOT NULL UNIQUE
+
+);
+
+CREATE TABLE paquete(
+ID_paquete INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+codigo_de_paquete INT (10) NOT NULL UNIQUE,
+Nombre VARCHAR  (40) NOT NULL,
+Descripcion VARCHAR (2000) NOT NULL, 
+Precio DECIMAL (10,2) NOT NULL
+
+);
+
+CREATE TABLE fotografo(
+ID_fotografo INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+Codigo_fotografo INT (10) NOT NULL UNIQUE,
+Nombre VARCHAR (40) NOT NULL,
+Especialidad VARCHAR (40) NOT NULL, 
+Años_de_experiencia INT (10) NOT NULL
+
+);
+
+CREATE TABLE sesion(
+ID_sesion INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
+Codigo INT (10) UNIQUE NOT NULL,
+Tipo VARCHAR (40) NOT NULL,
+Fecha DATE NOT NULL,
+Hora TIME NOT NULL,
+Duracion INT (10)  NOT NULL,
+Fotografo VARCHAR (40) NOT NULL,
+FOREIGN KEY (ID_sesion) REFERENCES clientes(ID_cliente),
+FOREIGN KEY (ID_sesion) REFERENCES fotografo(ID_fotografo),
+FOREIGN KEY (ID_sesion) REFERENCES paquete(ID_paquete)
+
+);
+
+
+CREATE TABLE empresa(
+ID_empresa INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+Codigo_empresa INT (13) NOT NULL UNIQUE,
+Nombre VARCHAR (40) NOT NULL,
+NIT VARCHAR (15) NOT NULL UNIQUE,
+Direccion VARCHAR (40) NOT NULL,
+Teléfono INT (10) NOT NULL,
+Correo VARCHAR (40) NOT NULL
+
+
+);
+
+CREATE TABLE factura(
+ID_factura INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+Numero_factura INT (13) NOT NULL UNIQUE,
+Fecha DATE NOT NULL DEFAULT CURRENT_DATE,
+Monto_total DECIMAL (10,2),
+Forma_de_pago VARCHAR(50),
+FOREIGN KEY (ID_factura) REFERENCES clientes(ID_cliente),
+FOREIGN KEY (ID_factura) REFERENCES empresa(ID_empresa)
+);
