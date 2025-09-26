@@ -1,4 +1,5 @@
-USE alejandropereira
+CREATE DATABASE alejandropereira;
+USE alejandropereira;
 
 CREATE TABLE clientes(
 ID_cliente INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
